@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">스마트홈 알리미</string>
+    <string name="menu_1">메뉴1</string>
+    <string name="menu_2">메뉴2</string>
+    <string name="menu_3">메뉴3</string>
+    <string name="menu_4">메뉴4</string>
+    <string name="title_home" />
+</resources>

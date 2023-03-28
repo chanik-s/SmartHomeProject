@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <TextView
+        android:id="@+id/dustText"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginRight="105dp"
+        android:background="@drawable/ic_launcher_background"
+        android:gravity="center"
+        android:text="-dust"
+        android:textColor="@android:color/black"
+        android:textSize="25sp" />
+
+    <Button
+        android:id="@+id/btn1"
+        android:text="미세먼지"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="65dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+
+        />
+
+    <TextView
+        android:id="@+id/tempText"
+        android:layout_width="277dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/humText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginRight="105dp"
+        android:background="@drawable/ic_launcher_background"
+        android:gravity="center"
+        android:text="-temp"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/btn2"
+        android:text="습도"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="195dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+
+        />
+    <TextView
+        android:id="@+id/humText"
+        android:layout_width="277dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dustText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="105dp"
+        android:layout_marginRight="105dp"
+        android:background="@drawable/ic_launcher_background"
+        android:gravity="center"
+        android:text="-humi"
+        android:textColor="@android:color/black"
+        android:textSize="30sp" />
+
+    <Button
+        android:id="@+id/btn3"
+        android:text="온도"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginStart="26dp"
+        android:layout_marginTop="320dp"
+        android:layout_marginEnd="13dp"
+        android:layout_marginRight="13dp"
+
+        />
+    <ImageView
+        android:id="@+id/dustLogo"
+        android:src="@drawable/dust"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignStart="@+id/dustText"
+        android:layout_alignLeft="@+id/dustText"
+        android:layout_alignTop="@+id/dustText"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="29dp"
+        />
+
+    <ImageView
+        android:id="@+id/tempLogo"
+        android:src="@drawable/dust"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignStart="@+id/dustText"
+        android:layout_alignLeft="@+id/dustText"
+        android:layout_alignTop="@+id/tempText"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="29dp"
+        />
+
+    <ImageView
+        android:id="@+id/humLogo"
+        android:src="@drawable/hum"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_alignStart="@+id/humText"
+        android:layout_alignLeft="@+id/humText"
+        android:layout_alignTop="@+id/humText"
+        android:layout_marginLeft="14dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="29dp"
+        />
+    <Button
+        android:id="@+id/btn_cam"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginEnd="280dp"
+        android:text="Home Cam"
+        android:background="#4CAF50"/>
+
+    <!--하단바 만들기 -->
+    <FrameLayout
+        android:id="@+id/menu_frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/menu_bottom_navigation"
+        >
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/menu_bottom_navigation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|bottom"
+            android:layout_marginStart="0dp"
+            app:itemIconTint="@drawable/menu_item_color"
+            app:itemTextColor="@drawable/menu_item_color"
+            app:labelVisibilityMode="labeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="@id/menu_frameLayout"
+            app:menu="@menu/bottom_menu" />
+    </FrameLayout>
+
+</RelativeLayout>
