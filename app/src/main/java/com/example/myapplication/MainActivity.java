@@ -3,6 +3,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -18,6 +19,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -49,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView tempText;
     private TextView humText;
 
+    private Button pmbu;
+    private Button hubu;
+    private Button tmbu;
+
+    private DrawerLayout drawerLayout; //상단 메뉴바
+    private View drawerView; //상단 메뉴바
     NotificationManager notificationManager;
     ArrayList<Sensor> sensorArrayList;
     NotificationCompat.Builder builder;
@@ -107,11 +115,17 @@ public class MainActivity extends AppCompatActivity {
         tempText = (TextView) findViewById(R.id.tempText); //온도
         humText = (TextView) findViewById(R.id.humText);   //습도
 
+        //상단메뉴바
+        pmbu=findViewById(R.id.pmbu);
+        hubu=findViewById(R.id.hubu);
+        tmbu=findViewById(R.id.tmbu);
+
         Button btn1=findViewById(R.id.btn1); //pm
         Button btn2=findViewById(R.id.btn2); //humid
         Button btn3=findViewById(R.id.btn3); //temp
         Button btn_cam=findViewById(R.id.btn_cam); //홈 캠 구현시
 
+        //미세먼지
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //습도
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,6 +143,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //온도
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+       //홈 캠
         btn_cam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -144,13 +160,65 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //상단메뉴 리스너
+        pmbu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),pmActivity.class);
+                startActivity(intent);
+            }
+        });
+        hubu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),humidActivity.class);
+                startActivity(intent);
+            }
+        });
+        tmbu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(),tempActivity.class);
+                startActivity(intent);
+            }
+        });
         // JsonParse jsonParse = new JsonParse(); // 아래에 따로 만든 JsonParse 클래스 동적 할당
         // jsonParse.start(); // AsyncTask 실행
 
+        //************************************************//
+        //메뉴바 관련
+        drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);  //메뉴바 생성
+        drawerView = (View) findViewById(R.id.drawer);
 
+        Button btn_menu = (Button)findViewById(R.id.btn_menu);
+        btn_menu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.openDrawer(drawerView);
+            }
+        });
 
+        Button btn_close = (Button)findViewById(R.id.btn_close);
+        btn_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                drawerLayout.closeDrawers();
+            }
+        });
 
+        //drawerLayout.setDrawerListener(listener);
+        drawerLayout.addDrawerListener(listener);
+        drawerView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
+        //메뉴바 끝
+
+        //http통신 핸들러
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
@@ -206,6 +274,31 @@ public class MainActivity extends AppCompatActivity {
         httpThread = new httpThread(handler);
         httpThread.start();
     }
+
+    //상단바 리스너 만들기
+    DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
+        @Override
+        public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+
+        }
+
+        @Override
+        public void onDrawerOpened(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerClosed(@NonNull View drawerView) {
+
+        }
+
+        @Override
+        public void onDrawerStateChanged(int newState) {
+
+        }
+    };
+
+
         @Override
         public void onBackPressed() {
          //앱의 화면 전환을 위한 intent 사용
@@ -215,7 +308,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent); //홈화면으로 전환 시작
         } // 뒤로가기 버튼 클릭했을 때 홈으로 이동하기
 
-    }
+
+
+}
     //생명주기 필요하다면
 
 /*

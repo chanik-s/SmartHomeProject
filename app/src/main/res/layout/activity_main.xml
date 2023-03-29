@@ -1,13 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".MainActivity"
+    >
+    <!--위에는 메뉴바 위한 레이아웃임-->
 
+    <!--
+    <fragment
+    android:layout_width="match_parent"
+        android:layout_height="wrap_content"
 
+        android:id="@+id/fragmentA"
+        android:name="com.example.myapplication.MainHomeFragment"
+        tools:layout="@layout/activity_main"
+        />
+    -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <!--메뉴바-->
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="320dp"
+            android:background="#9AA9AF"
+            android:gravity="center"
+            android:text="MENU"
+
+            />
     <TextView
         android:id="@+id/dustText"
         android:layout_width="280dp"
@@ -162,11 +193,10 @@
         android:id="@+id/menu_frameLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/menu_bottom_navigation"
-        >
-
+        app:layout_constraintEnd_toEndOf="parent"
+       >
+<!-- app:layout_constraintTop_toTopOf="@+id/menu_bottom_navigation"-->
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/menu_bottom_navigation"
             android:layout_width="match_parent"
@@ -181,4 +211,6 @@
             app:menu="@menu/bottom_menu" />
     </FrameLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
+    <include layout="@layout/activity_up_menu"/>
+</androidx.drawerlayout.widget.DrawerLayout>
