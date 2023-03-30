@@ -22,7 +22,9 @@ public class tempActivity extends AppCompatActivity {
 
 
         Intent intent=getIntent();
-        arrayListTemp=(ArrayList<Sensor>) intent.getSerializableExtra("sensor list");
+
+        arrayListTemp = (ArrayList<Sensor>) intent.getSerializableExtra("sensor list");
+
         //Sensor 클래스 안에 멤버 변수들은 연속된 메모리에 할당되지 않아 직렬화 객체가 될 수 없어 변경해줘야함
         ListTemp=findViewById(R.id.listTemp);
         ArrayList<String> data= new ArrayList<>();
@@ -33,9 +35,10 @@ public class tempActivity extends AppCompatActivity {
 
         ListTemp.setAdapter(adapter);
         //연결완료
-
-        for(int i=0;i<arrayListTemp.size();i++){
-            data.add("Temp "+arrayListTemp.get(i).getTemperature()+"℃");
+        if(arrayListTemp!=null) {
+            for (int i = 0; i < arrayListTemp.size(); i++) {
+                data.add("Temp " + arrayListTemp.get(i).getTemperature() + "℃");
+            }
         }
 
         adapter.notifyDataSetChanged(); //저장

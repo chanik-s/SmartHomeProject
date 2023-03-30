@@ -32,9 +32,10 @@ public class humidActivity extends AppCompatActivity {
         ListHumid.setAdapter(adapter);
         //연결완료
 
-
-        for(int i=0;i<arrayListHumid.size();i++){
-            data.add("Humid "+arrayListHumid.get(i).getHumidity()+"%");
+        if(arrayListHumid!=null) { //"null 개체 참조" 오류를 방지하고 상황을 보다 원활하게 처리
+            for (int i = 0; i < arrayListHumid.size(); i++) {
+                data.add("Humid " + arrayListHumid.get(i).getHumidity() + "%");
+            }
         }
         adapter.notifyDataSetChanged(); //저장
     }

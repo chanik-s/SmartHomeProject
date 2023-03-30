@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Sensor> sensorArrayList;
     NotificationCompat.Builder builder;
     httpThread httpThread; //쓰레드 http 통신 위한 객체
-    // private String jsonString;
+
     // ArrayList<Sensor> sensorArrayList; //센서 정보들 을  저장할 arraylist클래스(가변배열)    객체 타입은 Sensor 클래스
 
 
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     //Activity는 Context를 상속받은 하위 클래스이다. this라는 키워드로 접근
     //Activity클래스엔 Application Context를 가져오는 getApplicationContext()라는 메소드도 있다.
     // Application Context는 백그라운드 작업 또는 데이터 액세스와 같이 Activity의 라이프사이클에 국한되지 않고 유지되어야 하는 작업 을 할 때 사용된다.
-   // public static Context context; //에러 해결해봐
+
 
     //알림 서비스?
     void createNotificationChannel(String CHANNEL_ID,String channelName,int importance){
@@ -166,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),pmActivity.class);
+                intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
         });
@@ -173,6 +174,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),humidActivity.class);
+                intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
         });
@@ -180,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(),tempActivity.class);
+                intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
         });
