@@ -83,7 +83,7 @@ import java.util.ArrayList;
                     msg.obj=new ArrayList<>(sensorArrayList);
                     handler.sendMessage(msg);
                     //what -> 메세지 종류 구별
-                   httpURLConnection.disconnect(); //??
+                   httpURLConnection.disconnect(); //꼭 할 필요 있나?????
                 }
             } catch (Exception e) {
                 Log.d(TAG, "InsertData:ERROR", e);

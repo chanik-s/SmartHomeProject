@@ -39,23 +39,26 @@ public class homeCameraActivity extends AppCompatActivity  {
         cctvOffButton = (Button) findViewById(R.id.cctvOffButton);
 
         //웹뷰설정내용 ->공부 필요
-        webSettings = webView.getSettings();
+        webSettings = webView.getSettings(); //기본적으로 자바스크립트는 WebView에서 사용 중지
         webSettings.setJavaScriptEnabled(true);
 
+        //webview.loadUrl 사용시 웹을 통째로 가져와서 불필요함
         webView.loadData("<html><head><style type='text/css'>body{margin:auto auto;text-align:center;} " +
                         "img{width:100%25;} div{overflow: hidden;} </style></head>" +
                         "<body><div><img src='http://" + "192.168.25.19" + ":8091/?action=stream/'/></div></body></html>",
                 "text/html", "UTF-8");
+        /*
         webView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if (event.getAction() == MotionEvent.ACTION_DOWN) {
-                    webView.reload();
+                    webView.reload(); //현재 웹뷰 새로고침
                 }
                 return true;
             }
         }); // WebView 터치 시 새로고침
-
+            */
+        //신고하기 기능
         callText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

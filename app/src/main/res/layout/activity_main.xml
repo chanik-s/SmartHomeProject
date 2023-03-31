@@ -31,10 +31,10 @@
             android:id="@+id/btn_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="right"
+            android:layout_gravity="end"
             android:layout_alignParentStart="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="320dp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="323dp"
             android:background="#9AA9AF"
             android:gravity="center"
             android:text="MENU"
@@ -43,18 +43,15 @@
         <!--메뉴바-->
     <TextView
         android:id="@+id/dustText"
-        android:layout_width="280dp"
+        android:layout_width="277dp"
         android:layout_height="wrap_content"
+
         android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginStart="26dp"
-        android:layout_marginLeft="12dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="105dp"
-        android:layout_marginRight="105dp"
         android:background="@drawable/ic_launcher_background"
         android:gravity="center"
         android:text="-dust"
@@ -68,12 +65,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginStart="26dp"
         android:layout_marginTop="65dp"
         android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
-
         />
 
     <TextView
@@ -83,11 +77,10 @@
         android:layout_below="@+id/humText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginLeft="10dp"
+
+        android:layout_marginStart="10dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="105dp"
-        android:layout_marginRight="105dp"
         android:background="@drawable/ic_launcher_background"
         android:gravity="center"
         android:text="-temp"
@@ -101,12 +94,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
         android:layout_marginStart="26dp"
         android:layout_marginTop="195dp"
         android:layout_marginEnd="13dp"
-        android:layout_marginRight="13dp"
-
         />
     <TextView
         android:id="@+id/humText"

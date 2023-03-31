@@ -45,15 +45,11 @@ import java.util.Calendar;
 public class MainActivity extends AppCompatActivity {
 
     final String TAG = "TAG+MainActivity";
-   // String[] sensorData = {"0", "0", "0"}; //안써도 될 듯?
     private final String DEFAULT="DEFAULT";
     private TextView dustText;
     private TextView tempText;
     private TextView humText;
 
-    private Button pmbu;
-    private Button hubu;
-    private Button tmbu;
 
     private DrawerLayout drawerLayout; //상단 메뉴바
     private View drawerView; //상단 메뉴바
@@ -116,9 +112,9 @@ public class MainActivity extends AppCompatActivity {
         humText = (TextView) findViewById(R.id.humText);   //습도
 
         //상단메뉴바
-        pmbu=findViewById(R.id.pmbu);
-        hubu=findViewById(R.id.hubu);
-        tmbu=findViewById(R.id.tmbu);
+        Button pmbu=findViewById(R.id.pmbu);
+        Button hubu=findViewById(R.id.hubu);
+        Button tmbu=findViewById(R.id.tmbu);
 
         Button btn1=findViewById(R.id.btn1); //pm
         Button btn2=findViewById(R.id.btn2); //humid
@@ -226,17 +222,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
 
-              //  String tmp = msg.obj.toString();
-             // String tmp=msg.getData().toString();
-               // sensorData = tmp.split(",");
+
                 sensorArrayList= (ArrayList<Sensor>) msg.obj;
                 int size=sensorArrayList.size();
-               // Intent intent=new Intent(getApplicationContext(),pmActivity.class);
-
-              //  intent.putExtra("sensorlist",sensorArrayList);
-               // startActivity(intent);
-                //tempText.setText(sensorData[0] + " ℃");
-                //humText.setText(sensorData[1] + " %");
                 tempText.setText(sensorArrayList.get(size-1).getTemperature() + " ℃");
                 humText.setText(sensorArrayList.get(size-1).getHumidity() + " %");
                 //int dust = Integer.parseInt(sensorData[2]);
@@ -250,7 +238,6 @@ public class MainActivity extends AppCompatActivity {
                 }
                 //널문자때메 오류나지만 실제로 미세먼지 센서 달으면 안날꺼임
                 //미세먼지 조건
-               // int dust= sensorArrayList.get(0).getPM();
                 if (dust >= 0 && dust <= 30) {
                     dustText.setTextColor(Color.BLUE);
                     //dustText.setText("좋음 \n(" + sensorData[2] + " ㎍/㎥)");
@@ -314,112 +301,3 @@ public class MainActivity extends AppCompatActivity {
 
 
 }
-    //생명주기 필요하다면
-
-/*
-    //스레드 핸들러 구조 (json 파싱 따로 만들어야?)
-    public class JsonParse extends Thread { //Json 파싱 클래스
-        String TAG = "JsonParseTest"; //? 디버깅용 문자열같음
-
-        Handler handler;
-
-        public JsonParse(Handler handler){
-            this.handler=handler;
-        }
-
-        @SuppressLint("SetTextI18n")
-        @Override
-        public void run(){ //execute 매개 변수 받아와 [strings[0],strings[1]..등등] 위의 경우 url주소 하나뿐이므로 strings[0]만 존재
-            // 스레드에 의해 처리될 내용을 담기 위한 함수 [스레드의  run() 함수]
-            String url ="http://192.168.25.19:80/connect.php";
-            try {
-                URL serverURL = new URL(url); //라즈베리파이 서버의 url 정보 담는 객체 생성
-
-                HttpURLConnection httpURLConnection = (HttpURLConnection) serverURL.openConnection(); //http 통신을 위한 객체(httpURLConnection) 선언   실제 네트워크 연결 설정x(url 가져와)
-
-                if(httpURLConnection!=null) {
-                    httpURLConnection.setReadTimeout(5000); //읽기 타임 아웃
-                    httpURLConnection.setConnectTimeout(5000);//연결 타임 아웃
-                    //setRequsetMethod 별도 설정안할시 GET 방식
-                    httpURLConnection.setRequestMethod("GET");
-                    httpURLConnection.connect(); //http요청 실시
-
-                    int responseStatusCode = httpURLConnection.getResponseCode(); //getResponseCode() => 서버에서 보낸 http 상태 코드 반환
-
-                    InputStream inputStream; //입력 데이터 통로
-                    if (responseStatusCode == HttpURLConnection.HTTP_OK) { //http 상태 코드 200:정상
-                        inputStream = httpURLConnection.getInputStream(); //입력 스트림 얻기
-                    } else {
-                        inputStream = httpURLConnection.getErrorStream();
-                    }
-
-
-                    InputStreamReader inputStreamReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8); //InputStream으로 바이트 단위 데이터 얻기보단 Reader 거쳐 문자 읽어(한글 깨짐 해결)
-                    BufferedReader bufferedReader = new BufferedReader(inputStreamReader); //버퍼를 통해 문자열 읽기(위에선 문자로 하나하나 처리임)
-
-                    StringBuilder sb = new StringBuilder(); //변경 가능한 문자열 만들어.. String 합치는 작업시 대안 가능(ex> sb.append("문자열").append("연결");
-                    String line = null;
-
-                    while ((line = bufferedReader.readLine()) != null) {  //readLine() 입력 메소드   [한 줄(공백포함)전체 읽으므로 String으로 리턴 가능]
-                        sb.append(line); //문자열 저장
-                    }
-
-                    bufferedReader.close();
-                    Log.d(TAG, sb.toString().trim()); //디버깅 상태 확인
-
-                    String fromdoIn;
-                    fromdoIn=sb.toString().trim();
-                 //  if (fromdoIn == null)
-                  //     textView.setText("error");
-                 //   else {
-                        jsonString = fromdoIn;
-                        sensorArrayList = doParse(); //tmpSensorArray 값
-                        Log.d(TAG, sensorArrayList.get(0).getHumidity()); //디버깅용
-
-                        //앱 화면에 보여지는 구간
-                    dustText.setText(sensorArrayList.get(0).getTemperature() + sensorArrayList.get(0).getHumidity());
-                     //   for (int i = 0; i < sensorArrayList.size(); i++){
-                         //   textView.setText(sensorArrayList.get(i).getTemperature() + sensorArrayList.get(i).getHumidity());
-                        //   textView.setText(sensorArrayList.get(i).getTemperature());
-                       //    textView.setText(sensorArrayList.get(i).getHumidity()); //get(int index) 인덱스 위치에 있는 객체 리턴   (만약 전부 다 볼려면 for문 써야하나???)
-                        //    textView.setText(sensorArrayList.get(i).getTime());
-                        //    textView.setText(sensorArrayList.get(i).getPM());
-                  //      }
-                 //   }
-                    httpURLConnection.disconnect(); //?
-                }
-            } catch (Exception e) {
-                Log.d(TAG, "InsertData:ERROR", e); // 디버깅 에러보고
-                e.printStackTrace();
-            }
-        }
-
-
-
-        private ArrayList<Sensor> doParse() { //파싱하기
-            ArrayList<Sensor> tmpSensorArray = new ArrayList<>();
-            try {
-                JSONObject jsonObject = new JSONObject(jsonString); //JSON에서 key(ex>"sensor")-value(ex>"{temp:30,humi:20}") 쌍으로 데이터 표현     json에서 {}으로 감싸진 것
-                JSONArray jsonArray = jsonObject.getJSONArray("Sensor");  // json에서 []으로 감싸진 것  "Sensor"는 php문에서 db 테이블명
-                // php문 array()에서
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    Sensor tmpSensor = new Sensor();
-                    JSONObject item = jsonArray.getJSONObject(i);
-                    tmpSensor.setTemperature(item.getString("temp"));
-                    tmpSensor.setHumidity(item.getString("humi"));
-                    tmpSensor.setTime(item.getString("time"));
-                    tmpSensor.setPM(item.getString("pm"));
-
-                    tmpSensorArray.add(tmpSensor);
-                }
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            return tmpSensorArray; //json 가공해 arraylist에 넣음
-        }
-
-    }
-
- */
