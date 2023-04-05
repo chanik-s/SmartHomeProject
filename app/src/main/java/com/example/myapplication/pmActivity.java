@@ -36,7 +36,7 @@ public class pmActivity extends AppCompatActivity {
         //연결완료
         if(arrayListPm!=null) {
             for (int i = 0; i < arrayListPm.size(); i++) {
-                data.add("PM " + arrayListPm.get(i).getPM() + "㎍/㎥" + " Time " + arrayListPm.get(i).getTime());
+                data.add("PM " + arrayListPm.get(i).getPM() + "㎍/㎥\n" + " Time " + arrayListPm.get(i).getTime());
             }
         }
         //더 해볼 것..>simple_list_item_1을 2개 칸으로 나눠서 미세먼지 정보 + 타임 스태프 정보 나누기!

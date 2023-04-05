@@ -179,9 +179,17 @@
         android:layout_marginEnd="280dp"
         android:text="Home Cam"
         android:background="#4CAF50"/>
-
+    <Button
+        android:id="@+id/contrl_dev"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="250dp"
+        android:layout_marginTop="450dp"
+        android:text="기기 제어"
+        android:background="#4CAF50"/>
     <!--하단바 만들기 -->
-
+    <!--
     <FrameLayout
         android:id="@+id/menu_frameLayout"
         android:layout_width="match_parent"
@@ -203,6 +211,7 @@
             app:layout_constraintStart_toStartOf="@id/menu_frameLayout"
             app:menu="@menu/bottom_menu" />
     </FrameLayout>
+    -->
     </RelativeLayout>
     <include layout="@layout/activity_up_menu"/>
 

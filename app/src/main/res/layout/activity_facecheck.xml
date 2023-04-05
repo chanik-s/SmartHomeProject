@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".FaceCheckActivity">
+
+    <TextView
+        android:id="@+id/textfacecheck"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="얼굴 인식 페이지입니다"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+
+    <include layout="@layout/activity_up_menu"/>
+</LinearLayout>

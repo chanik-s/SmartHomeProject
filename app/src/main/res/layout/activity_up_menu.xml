@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#249F94"
-            android:text="먼지 농도"/>
+            android:text="미세먼지(Pm-10)"/>
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/hubu"
             android:layout_width="match_parent"
@@ -49,6 +49,18 @@
             android:layout_height="wrap_content"
             android:background="#009688"
             android:text="온도"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/faceCheck"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#009688"
+            android:text="얼굴 인식"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/tipOfLives"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#009688"
+            android:text="생활 팁"/>
     </LinearLayout>
 
 

@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout; //상단 메뉴바
     private View drawerView; //상단 메뉴바
     NotificationManager notificationManager;
-    ArrayList<Sensor> sensorArrayList;
+    private ArrayList<Sensor> sensorArrayList;
     NotificationCompat.Builder builder;
     httpThread httpThread; //쓰레드 http 통신 위한 객체
 
@@ -111,15 +111,21 @@ public class MainActivity extends AppCompatActivity {
         tempText = (TextView) findViewById(R.id.tempText); //온도
         humText = (TextView) findViewById(R.id.humText);   //습도
 
-        //상단메뉴바
+        //상단메뉴바 버튼
         Button pmbu=findViewById(R.id.pmbu);
         Button hubu=findViewById(R.id.hubu);
         Button tmbu=findViewById(R.id.tmbu);
+        Button facecheck=findViewById(R.id.faceCheck);
+        Button tipoflives=findViewById(R.id.tipOfLives);
 
+
+
+        //메인 쓰레드 버튼
         Button btn1=findViewById(R.id.btn1); //pm
         Button btn2=findViewById(R.id.btn2); //humid
         Button btn3=findViewById(R.id.btn3); //temp
         Button btn_cam=findViewById(R.id.btn_cam); //홈 캠 구현시
+        Button contrl_dev=findViewById(R.id.contrl_dev); //기기 제어
 
         //미세먼지
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -156,8 +162,18 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //기기 제어
+        contrl_dev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),ControlDeviceActivity.class);
+                startActivity(intent);
+            }
+        });
 
-        //상단메뉴 리스너
+        //상단메뉴들 버튼 인텐트
+
+        //먼지 농도 눌렀을때
         pmbu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -166,6 +182,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //습도 눌렀을때
         hubu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,6 +191,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //온도 눌렀을때
         tmbu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -182,8 +200,23 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        // JsonParse jsonParse = new JsonParse(); // 아래에 따로 만든 JsonParse 클래스 동적 할당
-        // jsonParse.start(); // AsyncTask 실행
+        //얼굴 인식 눌렀을때
+        facecheck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),FaceCheckActivity.class);
+                startActivity(intent);
+            }
+        });
+        //생활 팁 눌렀을때
+       tipoflives.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               Intent intent=new Intent(getApplicationContext(),TipOfLivesActivity.class);
+               startActivity(intent);
+           }
+       });
+
 
         //************************************************//
         //메뉴바 관련
@@ -255,8 +288,8 @@ public class MainActivity extends AppCompatActivity {
                     dustText.setTextColor(Color.RED);
                     dustText.setText("매우나쁨 \n(" + sensorArrayList.get(size-1).getPM() + " ㎍/㎥)");
                    builder.setContentText("온도 = " + sensorArrayList.get(size-1).getTemperature()+ " ℃ 습도 = " + sensorArrayList.get(size-1).getHumidity()  + " % 미세먼지 농도 = 매우나쁨 (" +sensorArrayList.get(size-1).getPM()+ "㎍/㎥)");
-                } // 미세먼지 등급에 따라 등급과 글자색 변경
-                notificationManager.notify(1,builder.build());
+                }
+                notificationManager.notify(1,builder.build()); //builder에 새로운 값 넣어줌
                 return false;
             }
         });

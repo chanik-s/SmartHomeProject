@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".TipOfLivesActivity">
+
+    <TextView
+        android:id="@+id/textTip"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="건강한 생활 팁"
+        android:textColor="@color/black"
+        android:textSize="30sp" />
+
+
+    <include layout="@layout/activity_up_menu"/>
+</LinearLayout>

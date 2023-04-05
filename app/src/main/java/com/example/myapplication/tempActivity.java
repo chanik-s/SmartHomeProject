@@ -37,7 +37,7 @@ public class tempActivity extends AppCompatActivity {
         //연결완료
         if(arrayListTemp!=null) {
             for (int i = 0; i < arrayListTemp.size(); i++) {
-                data.add("Temp " + arrayListTemp.get(i).getTemperature() + "℃");
+                data.add("Temp " + arrayListTemp.get(i).getTemperature() + "℃\n"+" Time " + arrayListTemp.get(i).getTime());
             }
         }
 

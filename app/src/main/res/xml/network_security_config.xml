@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- https가 아닌 http에 접속하려 할때 안드로이드는 기본적으로 http 프로토콜을 접근할 수 없도록 하고 있음.-->
+<network-security-config>
+    <debug-overrides>
+        <trust-anchors>
+            <certificates src="user"/>
+        </trust-anchors>
+    </debug-overrides>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">mesoft.kr</domain>
+    </domain-config>
+</network-security-config>
