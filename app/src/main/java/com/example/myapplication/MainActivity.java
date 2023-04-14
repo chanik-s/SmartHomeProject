@@ -263,11 +263,12 @@ public class MainActivity extends AppCompatActivity {
                 //int dust = Integer.parseInt(sensorData[2]);
                 //int dust=40;
                 //int dust= Integer.parseInt(sensorArrayList.get(0).getPM());
-                int  dust=0;
+                double  dust; //double로인해 해결함
                 try{
-                    dust=Integer.parseInt(sensorArrayList.get(size-1).getPM());
+
+                   dust=Double.parseDouble((sensorArrayList.get(size - 1).getPM()));
                 }catch(NumberFormatException e){
-                    dust=999; //에러 숫자
+                    dust=-1; //에러 숫자
                 }
                 //널문자때메 오류나지만 실제로 미세먼지 센서 달으면 안날꺼임
                 //미세먼지 조건

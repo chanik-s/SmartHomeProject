@@ -52,7 +52,7 @@
         android:layout_marginStart="26dp"
         android:layout_marginTop="40dp"
         android:layout_marginEnd="105dp"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/rect"
         android:gravity="center"
         android:text="-dust"
         android:textColor="@android:color/black"
@@ -81,7 +81,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="18dp"
         android:layout_marginEnd="105dp"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/rect"
         android:gravity="center"
         android:text="-temp"
         android:textColor="@android:color/black"
@@ -110,7 +110,7 @@
         android:layout_marginTop="18dp"
         android:layout_marginEnd="105dp"
         android:layout_marginRight="105dp"
-        android:background="@drawable/ic_launcher_background"
+        android:background="@drawable/rect"
         android:gravity="center"
         android:text="-humi"
         android:textColor="@android:color/black"
@@ -145,7 +145,7 @@
 
     <ImageView
         android:id="@+id/tempLogo"
-        android:src="@drawable/dust"
+        android:src="@drawable/temp1"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignStart="@+id/dustText"
@@ -158,7 +158,7 @@
 
     <ImageView
         android:id="@+id/humLogo"
-        android:src="@drawable/hum"
+        android:src="@drawable/humid2"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_alignStart="@+id/humText"
@@ -178,16 +178,16 @@
         android:layout_marginTop="450dp"
         android:layout_marginEnd="280dp"
         android:text="Home Cam"
-        android:background="#4CAF50"/>
+        android:background="@drawable/rect"/>
     <Button
         android:id="@+id/contrl_dev"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_marginStart="250dp"
+        android:layout_marginStart="190dp"
         android:layout_marginTop="450dp"
         android:text="기기 제어"
-        android:background="#4CAF50"/>
+        android:background="@drawable/rect"/>
     <!--하단바 만들기 -->
     <!--
     <FrameLayout

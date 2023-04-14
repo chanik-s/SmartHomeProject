@@ -6,8 +6,8 @@
     tools:context=".loadingActivity">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/applogo" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/homelogo1" />
     <!--원하는 이미지 drawable 밑에 넣어-->
 </RelativeLayout>

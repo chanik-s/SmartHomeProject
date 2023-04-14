@@ -41,12 +41,22 @@ public class homeCameraActivity extends AppCompatActivity  {
         //웹뷰설정내용 ->공부 필요
         webSettings = webView.getSettings(); //기본적으로 자바스크립트는 WebView에서 사용 중지
         webSettings.setJavaScriptEnabled(true);
-
-        //webview.loadUrl 사용시 웹을 통째로 가져와서 불필요함
-        webView.loadData("<html><head><style type='text/css'>body{margin:auto auto;text-align:center;} " +
-                        "img{width:100%25;} div{overflow: hidden;} </style></head>" +
-                        "<body><div><img src='http://" + "192.168.25.19" + ":8091/?action=stream/'/></div></body></html>",
-                "text/html", "UTF-8");
+        cctvOnButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //webview.loadUrl 사용시 웹을 통째로 가져와서 불필요함
+                webView.loadData("<html><head><style type='text/css'>body{margin:auto auto;text-align:center;} " +
+                                "img{width:100%25;} div{overflow: hidden;} </style></head>" +
+                                "<body><div><img src='http://" + "192.168.25.19" + ":8091/?action=stream/'/></div></body></html>",
+                        "text/html", "UTF-8");
+            }
+        });
+        cctvOffButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //0405과제:""webview 끄는거 찾기!!!!!!!
+            }
+        });
         /*
         webView.setOnTouchListener(new View.OnTouchListener() {
             @Override
