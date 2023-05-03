@@ -41,6 +41,12 @@ public class homeCameraActivity extends AppCompatActivity  {
         //웹뷰설정내용 ->공부 필요
         webSettings = webView.getSettings(); //기본적으로 자바스크립트는 WebView에서 사용 중지
         webSettings.setJavaScriptEnabled(true);
+        //zoom 기능--확대 축소
+        webSettings.setSupportZoom(true);
+        webSettings.setBuiltInZoomControls(true);
+        webSettings.setDisplayZoomControls(false);
+
+        //on시
         cctvOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,10 +57,13 @@ public class homeCameraActivity extends AppCompatActivity  {
                         "text/html", "UTF-8");
             }
         });
+        //off시
         cctvOffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //0405과제:""webview 끄는거 찾기!!!!!!!
+                //webView를 담고 있는 액티비티를 종료하면 된다?
+                finish(); //액티비티 종료
             }
         });
         /*
