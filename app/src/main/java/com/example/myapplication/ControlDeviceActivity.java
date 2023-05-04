@@ -15,6 +15,9 @@ import com.android.volley.toolbox.Volley;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,14 +30,15 @@ public class ControlDeviceActivity extends AppCompatActivity {
         Button btnDevOn=findViewById(R.id.btnDevOn);
         Button btnDevOff=findViewById(R.id.btnDevOff);
 
+        //String url = "http://192.168.25.19/post.php"; //라즈베리파이 ip주소
         //on버튼 누를시
         btnDevOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url = "http://192.168.25.19/post.php"; //라즈베리파이 ip주소
+                String on_url = "http://192.168.25.19/post.php"; //라즈베리파이 ip주소
 
                 // Volley 라이브러리를 사용하여 HTTP POST 요청을 처리하기 위한 객체
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, on_url,
 
                         new Response.Listener<String>() {//요청이 성공했을 때 호출될 콜백 함수
                             @Override
@@ -45,6 +49,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("POST Error", error.toString());
+                        error.printStackTrace();
                     }
                 })
                 {
@@ -52,6 +57,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
                     protected Map<String, String> getParams() { //POST 요청에 담을 데이터를 정의
                         Map<String, String> params = new HashMap<>();
                         params.put("input", "a"); // "input"이라는 키값으로 "a"보냄
+
                         return params;
                     }
                 };
@@ -66,10 +72,10 @@ public class ControlDeviceActivity extends AppCompatActivity {
         btnDevOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String url2 = "http://192.168.25.19/post.php"; //라즈베리파이 ip주소
+                String off_url = "http://192.168.25.19/post.php"; //라즈베리파이 ip주소
 
                 // Volley 라이브러리를 사용하여 HTTP POST 요청을 처리하기 위한 객체
-                StringRequest stringRequest2 = new StringRequest(Request.Method.POST, url2,
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, off_url,
 
                         new Response.Listener<String>() {//요청이 성공했을 때 호출될 콜백 함수
                             @Override
@@ -80,6 +86,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("POST Error", error.toString());
+                        error.printStackTrace();
                     }
                 })
                 {
@@ -90,7 +97,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
                         return params;
                     }
                 };
-                Volley.newRequestQueue(getApplicationContext()).add(stringRequest2);
+                Volley.newRequestQueue(getApplicationContext()).add(stringRequest);
                 //요청을 보낼 RequestQueue를 생성하고, 생성한 StringRequest 객체를 추가하여 요청을 보냅니다.
                 // 이때 "this"는 현재 액티비티를 의미
             }
