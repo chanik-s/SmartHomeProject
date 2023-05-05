@@ -40,6 +40,8 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Calendar;
+import java.util.Timer;
+import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView dustText;
     private TextView tempText;
     private TextView humText;
-
+    private Timer timer;
 
     private DrawerLayout drawerLayout; //상단 메뉴바
     private View drawerView; //상단 메뉴바
@@ -250,6 +252,9 @@ public class MainActivity extends AppCompatActivity {
 
         //메뉴바 끝
 
+
+
+
         //http통신 핸들러
         Handler handler = new Handler(new Handler.Callback() {
             @Override
@@ -297,6 +302,20 @@ public class MainActivity extends AppCompatActivity {
 
         httpThread = new httpThread(handler);
         httpThread.start();
+
+
+        //타이머 스케줄
+        timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                // http 요청 보내는 코드 작성
+
+                // 예를 들어 httpThread 클래스의 인스턴스를 생성하여 실행하는 코드
+                httpThread thread = new httpThread(handler);
+                thread.start();
+            }
+        }, 0, 5000); // 0초 후에 시작하고 5초마다 반복 실행
     }
 
     //상단바 리스너 만들기
@@ -332,6 +351,13 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent); //홈화면으로 전환 시작
         } // 뒤로가기 버튼 클릭했을 때 홈으로 이동하기
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+            timer = null;
+        }
+    }
 
 }
