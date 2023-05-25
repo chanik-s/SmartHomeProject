@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <!--인터넷 접근허용 퍼미션-->
 
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
@@ -20,6 +22,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyC_GCD5WDG3W7P4kw3rFh0VOHcVykdKcUo" />
+
+
     <!--앱의 시작점을 로딩화면으로 먼저 설정-->
         <activity android:name=".loadingActivity"
             android:exported="true">
@@ -27,6 +35,31 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity android:name=".Login"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".Map"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Record"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".Register"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".afterLogin"
+            android:exported="true">
         </activity>
 
         <activity

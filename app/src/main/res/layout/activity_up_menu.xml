@@ -32,6 +32,12 @@
         android:orientation="vertical">
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginfile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#249F94"
+            android:text="로그인 정보/기록"/>
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/pmbu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

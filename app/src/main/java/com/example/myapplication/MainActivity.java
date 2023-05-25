@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         Button tmbu=findViewById(R.id.tmbu);
         Button facecheck=findViewById(R.id.faceCheck);
         Button tipoflives=findViewById(R.id.tipOfLives);
-
+        Button loginfile=findViewById(R.id.loginfile);
 
 
         //메인 쓰레드 버튼
@@ -219,6 +219,15 @@ public class MainActivity extends AppCompatActivity {
                startActivity(intent);
            }
        });
+        //로그인 정보 및 기록
+        loginfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),afterLogin.class);
+                startActivity(intent);
+            }
+        });
+
 
 
         //************************************************//

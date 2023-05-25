@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Register"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="#2196F3"
+            android:textSize="30dp"
+            android:layout_marginTop="20dp"
+            />
+
+        <EditText
+            android:id="@+id/register_name"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="이름"
+            android:inputType="textPersonName"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/register_id"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="이메일"
+            android:inputType="textEmailAddress"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/register_ps"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="비밀번호"
+            android:inputType="textPassword"
+            android:layout_marginTop="10dp"
+            />
+
+        <EditText
+            android:id="@+id/register_ps_confirm"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="비밀번호 확인"
+            android:inputType="textPassword"
+            android:layout_marginTop="10dp"
+            />
+
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="280dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="회원가입"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:backgroundTint="#2196F3"/>
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
