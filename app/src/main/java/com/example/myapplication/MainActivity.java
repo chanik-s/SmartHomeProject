@@ -46,8 +46,8 @@ import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
 
+    private humidActivity humidActivity;
     final String TAG = "TAG+MainActivity";
-    private final String DEFAULT="DEFAULT";
     private TextView dustText;
     private TextView tempText;
     private TextView humText;
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout; //상단 메뉴바
     private View drawerView; //상단 메뉴바
     NotificationManager notificationManager;
-    private ArrayList<Sensor> sensorArrayList;
+    private ArrayList<Sensor> sensorArrayList; //전역변수
     NotificationCompat.Builder builder;
     httpThread httpThread; //쓰레드 http 통신 위한 객체
 
@@ -106,7 +106,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //알림
-        createNotificationChannel(DEFAULT,"default channel",NotificationManager.IMPORTANCE_HIGH);
+        String DEFAULT = "DEFAULT";
+        createNotificationChannel(DEFAULT,"default channel",NotificationManager.IMPORTANCE_LOW);
         createNotification(DEFAULT,1,"실내 환경 데이터","온도 = 0 습도 = 0 미세먼지 = ");
        // context = this; //
         dustText = (TextView) findViewById(R.id.dustText); //미세먼지
@@ -314,9 +315,26 @@ public class MainActivity extends AppCompatActivity {
                 // 예를 들어 httpThread 클래스의 인스턴스를 생성하여 실행하는 코드
                 httpThread thread = new httpThread(handler);
                 thread.start();
+                //updateArrayList();
+                //습도 정보 업데이트 기능? 재확인 필요함
+                if (humidActivity != null) {
+                    // BActivity 업데이트 메소드 호출
+                    com.example.myapplication.humidActivity.updateArraylist(sensorArrayList);
+                }
+                // 데이터 업데이트
+
             }
         }, 0, 5000); // 0초 후에 시작하고 5초마다 반복 실행
     }
+
+    // ArrayList 값 변경 메소드
+   // public void updateArrayList() {
+        // ArrayList 값 변경
+     //   if (humidActivity != null) {
+            // BActivity 업데이트 메소드 호출
+       //    com.example.myapplication.humidActivity.updateArraylist(sensorArrayList);
+       // }
+    //}
 
     //상단바 리스너 만들기
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {

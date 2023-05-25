@@ -65,7 +65,7 @@ import java.util.ArrayList;
                     StringBuilder sb = new StringBuilder(); //변경 가능한 문자열 만들어.. String 합치는 작업시 대안 가능(ex> sb.append("문자열").append("연결");
                     String line = null;
 
-                    while ((line = bufferedReader.readLine()) != null) {  //readLine() 입력 메소드   [한 줄(공백포함)전체 읽으므로 String으로 리턴 가능]
+                     while ((line = bufferedReader.readLine()) != null) {  //readLine() 입력 메소드   [한 줄(공백포함)전체 읽으므로 String으로 리턴 가능]
                         sb.append(line); //문자열 저장
                     }
 

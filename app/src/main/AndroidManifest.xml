@@ -65,7 +65,9 @@
         <activity android:name=".ControlDeviceActivity"
             android:exported="true">
         </activity>
-
+        <activity android:name=".GraphHumid"
+            android:exported="true">
+        </activity>
     </application>
 
 </manifest>
