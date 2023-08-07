@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 //splash 액티비티임  2초 뒤 메인으로 이동
-public class loadingActivity extends AppCompatActivity {
+public class LoadingActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

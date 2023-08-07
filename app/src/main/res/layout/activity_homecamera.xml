@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".homeCameraActivity">
+    tools:context=".HomeCameraActivity">
     <!--웹뷰 통해서 스트리밍 보여줌 -->
     <WebView
         android:id="@+id/cctvWeb"

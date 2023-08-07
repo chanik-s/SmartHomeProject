@@ -18,14 +18,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
-    public class httpThread extends Thread { //Json 파싱 클래스
-        String TAG = "JsonParseTest"; //디버깅용
+    public class HttpThread extends Thread { //Json 파싱 클래스
+        String TAG = "JsonParseTest";
         String jsonString;
         //ArrayList<Sensor> sensorArrayList;
         Handler handler;
         ArrayList<Sensor> sensorArrayList;
 
-        public httpThread(Handler handler){
+        public HttpThread(Handler handler){
 
             this.handler=handler;
         }
@@ -41,8 +41,8 @@ import java.util.ArrayList;
                 HttpURLConnection httpURLConnection = (HttpURLConnection) serverURL.openConnection(); //http 통신을 위한 객체(httpURLConnection) 선언   실제 네트워크 연결 설정x(url 가져와)
 
                 if(httpURLConnection!=null) {
-                    httpURLConnection.setReadTimeout(5000); //읽기 타임 아웃
-                    httpURLConnection.setConnectTimeout(5000);//연결 타임 아웃
+                    httpURLConnection.setReadTimeout(5000);
+                    httpURLConnection.setConnectTimeout(5000);
                     //setRequsetMethod 별도 설정안할시 GET 방식
                     httpURLConnection.setRequestMethod("GET");
                     httpURLConnection.connect(); //http요청 실시
@@ -83,7 +83,7 @@ import java.util.ArrayList;
                     msg.obj=new ArrayList<>(sensorArrayList);
                     handler.sendMessage(msg);
                     //what -> 메세지 종류 구별
-                   httpURLConnection.disconnect(); //꼭 할 필요 있나?????
+                   httpURLConnection.disconnect();
                 }
             } catch (Exception e) {
                 Log.d(TAG, "InsertData:ERROR", e);

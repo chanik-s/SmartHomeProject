@@ -2,17 +2,17 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.io.Serializable;
 
-public class pmActivity extends AppCompatActivity {
+public class PmActivity extends AppCompatActivity {
 
     private ListView listPm;
     ArrayList<Sensor> arrayListPm; //받아와야함
@@ -27,11 +27,10 @@ public class pmActivity extends AppCompatActivity {
         //Sensor 클래스 안에 멤버 변수들은 연속된 메모리에 할당되지 않아 직렬화 객체가 될 수 없어 변경해줘야함
         listPm=findViewById(R.id.listPm);
         ArrayList<String> data= new ArrayList<>();
-
+        Button btnPmGraph = findViewById(R.id.btnPmGraph); //그래프 버튼
 
         //연결을 위한 adapter
         ArrayAdapter<String>adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,data);
-                                                                                        //data 대신 arraylist로
         listPm.setAdapter(adapter);
         //연결완료
         if(arrayListPm!=null) {
@@ -43,6 +42,13 @@ public class pmActivity extends AppCompatActivity {
 
 
         adapter.notifyDataSetChanged(); //저장
-
+        btnPmGraph.setOnClickListener(new View.OnClickListener() { //그래프 버튼 클릭시
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(PmActivity.this,GraphPm.class);
+                intent.putExtra("forpmgraph",arrayListPm);
+                startActivity(intent);
+            }
+        });
     }
 }

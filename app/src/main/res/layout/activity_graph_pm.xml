@@ -4,28 +4,29 @@
     android:layout_height="match_parent"
     android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".GraphHumid">
+    tools:context=".GraphPm">
     <TextView
-        android:id="@+id/textGH"
+        android:id="@+id/textGP"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="습도 Graph" />
+        android:text="미세먼지 Graph" />
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/HumidChart"
+        android:id="@+id/PmChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/nextBtn"
+        android:layout_above="@+id/nextBtnP"
         />
     <Button
-        android:id="@+id/nextBtn"
+        android:id="@+id/nextBtnP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
         />
+
     <Button
-        android:id="@+id/prevBtnH"
+        android:id="@+id/prevBtnP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prev"

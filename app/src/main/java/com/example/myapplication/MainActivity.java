@@ -2,17 +2,11 @@ package com.example.myapplication;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.graphics.Color;
@@ -22,43 +16,34 @@ import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 import android.util.Log;
-import android.widget.TimePicker;
 
 
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    private humidActivity humidActivity;
+
     final String TAG = "TAG+MainActivity";
     private TextView dustText;
     private TextView tempText;
     private TextView humText;
     private Timer timer;
+    private HumidActivity hactivity; // humidActivity 인스턴스를 참조하는 변수
 
     private DrawerLayout drawerLayout; //상단 메뉴바
     private View drawerView; //상단 메뉴바
     NotificationManager notificationManager;
-    private ArrayList<Sensor> sensorArrayList; //전역변수
+    public static ArrayList<Sensor> sensorArrayList; //전역변수-앱 전체에서 공유
     NotificationCompat.Builder builder;
-    httpThread httpThread; //쓰레드 http 통신 위한 객체
+    HttpThread httpThread; //쓰레드 http 통신 위한 객체
+
+
 
     // ArrayList<Sensor> sensorArrayList; //센서 정보들 을  저장할 arraylist클래스(가변배열)    객체 타입은 Sensor 클래스
 
@@ -124,9 +109,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         //메인 쓰레드 버튼
-        Button btn1=findViewById(R.id.btn1); //pm
-        Button btn2=findViewById(R.id.btn2); //humid
-        Button btn3=findViewById(R.id.btn3); //temp
+        Button btn1 = findViewById(R.id.btn1); //pm
+        Button btn2 = findViewById(R.id.btn2); //humid
+        Button btn3 = findViewById(R.id.btn3); //temp
         Button btn_cam=findViewById(R.id.btn_cam); //홈 캠 구현시
         Button contrl_dev=findViewById(R.id.contrl_dev); //기기 제어
 
@@ -134,25 +119,27 @@ public class MainActivity extends AppCompatActivity {
         btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MainActivity.this,pmActivity.class);
+                Intent intent=new Intent(MainActivity.this, PmActivity.class);
                 intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
         });
+
         //습도
         btn2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),humidActivity.class);
+                Intent intent=new Intent(getApplicationContext(), HumidActivity.class);
                 intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
         });
+
         //온도
         btn3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),tempActivity.class);
+                Intent intent=new Intent(getApplicationContext(), TempActivity.class);
                 intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
@@ -161,7 +148,7 @@ public class MainActivity extends AppCompatActivity {
         btn_cam.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),homeCameraActivity.class);
+                Intent intent=new Intent(getApplicationContext(), HomeCameraActivity.class);
                 startActivity(intent);
             }
         });
@@ -180,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
         pmbu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),pmActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PmActivity.class);
                 intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
@@ -189,7 +176,7 @@ public class MainActivity extends AppCompatActivity {
         hubu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),humidActivity.class);
+                Intent intent = new Intent(getApplicationContext(), HumidActivity.class);
                 intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
@@ -198,7 +185,7 @@ public class MainActivity extends AppCompatActivity {
         tmbu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(),tempActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TempActivity.class);
                 intent.putExtra("sensor list",sensorArrayList);
                 startActivity(intent);
             }
@@ -223,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
         loginfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),afterLogin.class);
+                Intent intent=new Intent(getApplicationContext(), AfterLogin.class);
                 startActivity(intent);
             }
         });
@@ -262,45 +249,38 @@ public class MainActivity extends AppCompatActivity {
 
         //메뉴바 끝
 
-
-
-
         //http통신 핸들러
         Handler handler = new Handler(new Handler.Callback() {
             @Override
             public boolean handleMessage(@NonNull Message msg) {
 
-
                 sensorArrayList= (ArrayList<Sensor>) msg.obj;
                 int size=sensorArrayList.size();
                 tempText.setText(sensorArrayList.get(size-1).getTemperature() + " ℃");
                 humText.setText(sensorArrayList.get(size-1).getHumidity() + " %");
-                //int dust = Integer.parseInt(sensorData[2]);
-                //int dust=40;
-                //int dust= Integer.parseInt(sensorArrayList.get(0).getPM());
-                double  dust; //double로인해 해결함
-                try{
 
-                   dust=Double.parseDouble((sensorArrayList.get(size - 1).getPM()));
+                double  dust; //double로인해 해결
+                try{
+                   dust=Double.parseDouble((sensorArrayList.get(size - 1).getPM())); //string->double 형변환
                 }catch(NumberFormatException e){
                     dust=-1; //에러 숫자
                 }
-                //널문자때메 오류나지만 실제로 미세먼지 센서 달으면 안날꺼임
+
                 //미세먼지 조건
-                if (dust >= 0 && dust <= 30) {
+                if (dust >= 0 && dust <= 30.0) {
                     dustText.setTextColor(Color.BLUE);
                     //dustText.setText("좋음 \n(" + sensorData[2] + " ㎍/㎥)");
                     dustText.setText("좋음 \n(" + sensorArrayList.get(size-1).getPM() + " ㎍/㎥)");
                    builder.setContentText("온도 = " + sensorArrayList.get(size-1).getTemperature() + " ℃ 습도 = " + sensorArrayList.get(size-1).getHumidity() + " % 미세먼지 농도 = 좋음 (" + sensorArrayList.get(size-1).getPM() + "㎍/㎥)");
-                } else if (dust >= 31 && dust <= 80) {
+                } else if (dust >= 31.0 && dust <= 80.0) {
                     dustText.setTextColor(Color.GREEN);
                     dustText.setText("보통 \n(" + sensorArrayList.get(size-1).getPM() + " ㎍/㎥)");
                    builder.setContentText("온도 = " + sensorArrayList.get(size-1).getTemperature() + " ℃ 습도 = " + sensorArrayList.get(size-1).getHumidity() + " % 미세먼지 농도 = 보통 (" + sensorArrayList.get(size-1).getPM() + "㎍/㎥)");
-                } else if (dust >= 81 && dust <= 150) {
+                } else if (dust >= 81.0 && dust <= 150.0) {
                     dustText.setTextColor(Color.parseColor("#FF7F00"));
                     dustText.setText("나쁨 \n(" + sensorArrayList.get(size-1).getPM() + " ㎍/㎥)");
                     builder.setContentText("온도 = " +sensorArrayList.get(size-1).getTemperature() + " ℃ 습도 = " + sensorArrayList.get(size-1).getHumidity()  + " % 미세먼지 농도 = 나쁨 (" + sensorArrayList.get(size-1).getPM() + "㎍/㎥)");
-                } else if (dust >= 151) {
+                } else if (dust >= 151.0) {
                     dustText.setTextColor(Color.RED);
                     dustText.setText("매우나쁨 \n(" + sensorArrayList.get(size-1).getPM() + " ㎍/㎥)");
                    builder.setContentText("온도 = " + sensorArrayList.get(size-1).getTemperature()+ " ℃ 습도 = " + sensorArrayList.get(size-1).getHumidity()  + " % 미세먼지 농도 = 매우나쁨 (" +sensorArrayList.get(size-1).getPM()+ "㎍/㎥)");
@@ -310,9 +290,11 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        httpThread = new httpThread(handler);
+        httpThread = new HttpThread(handler);
         httpThread.start();
 
+        //humidActivity 인스턴스 얻기
+        //hactivity=new humidActivity();
 
         //타이머 스케줄
         timer = new Timer();
@@ -322,28 +304,35 @@ public class MainActivity extends AppCompatActivity {
                 // http 요청 보내는 코드 작성
 
                 // 예를 들어 httpThread 클래스의 인스턴스를 생성하여 실행하는 코드
-                httpThread thread = new httpThread(handler);
+                HttpThread thread = new HttpThread(handler);
                 thread.start();
-                //updateArrayList();
+                //  handleSensorDataUpdate(sensorArrayList);
+            /*
                 //습도 정보 업데이트 기능? 재확인 필요함
-                if (humidActivity != null) {
-                    // BActivity 업데이트 메소드 호출
-                    com.example.myapplication.humidActivity.updateArraylist(sensorArrayList);
+                if (hactivity != null) {
+                    hactivity.updateArraylist(sensorArrayList); //데이터 업데이트 해주지만 ui 업데이트는 메인에서
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // 리스트뷰 업데이트
+                            hactivity.updateListView(); //ui업데이트 메인액티비티에서 해줘야함
+                        }
+                    });
                 }
-                // 데이터 업데이트
-
+                */
             }
         }, 0, 5000); // 0초 후에 시작하고 5초마다 반복 실행
     }
+/*
+    //작동 되는데 계속 겹치는 문제점 있는 메소드
+    private void handleSensorDataUpdate(ArrayList<Sensor> updatedArrayList) {
+        Intent intent = new Intent(this, humidActivity.class);
+        intent.putExtra("sensor list", updatedArrayList);
+        intent.addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP); // 이미 열려있는 경우 새로운 인스턴스를 생성하지 않고 기존 인스턴스를 사용
+        startActivity(intent);
+    }
 
-    // ArrayList 값 변경 메소드
-   // public void updateArrayList() {
-        // ArrayList 값 변경
-     //   if (humidActivity != null) {
-            // BActivity 업데이트 메소드 호출
-       //    com.example.myapplication.humidActivity.updateArraylist(sensorArrayList);
-       // }
-    //}
+*/
 
     //상단바 리스너 만들기
     DrawerLayout.DrawerListener listener = new DrawerLayout.DrawerListener() {
@@ -369,14 +358,14 @@ public class MainActivity extends AppCompatActivity {
     };
 
 
-        @Override
-        public void onBackPressed() {
+    @Override
+    public void onBackPressed() {
          //앱의 화면 전환을 위한 intent 사용
             Intent intent = new Intent(Intent.ACTION_MAIN); //액티비티 액션 -시작하는 액티비티(메인) 지정
             intent.addCategory(Intent.CATEGORY_HOME);  // 카테고리 - 홈화면을 보여주는 액티비티
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK); //플래그 - 새 테슽크 생성후 안에 액티비티 추가
             startActivity(intent); //홈화면으로 전환 시작
-        } // 뒤로가기 버튼 클릭했을 때 홈으로 이동하기
+    } // 뒤로가기 버튼 클릭했을 때 홈으로 이동하기
 
     @Override
     protected void onDestroy() {
@@ -387,4 +376,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+    }
 }

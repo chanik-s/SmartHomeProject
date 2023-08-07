@@ -5,11 +5,11 @@ import java.io.Serializable;
 // php에서 json 파싱한 값 저장할 클래스(sensor) 만듦
 public class Sensor implements Serializable { //데이터 클래스 직렬화?
     private static final long serialVersionUID=1L; //, 객체를 전달측과 수신하는 측에서 사용하는 클래스 파일이 동일한지 체크
-    String humidity;
-    String temperature;
-    String time;
+    private String humidity;
+    private String temperature;
+    private String time;
+    private String PM;
 
-    String PM;
     public String getHumidity(){
         return humidity;
     }

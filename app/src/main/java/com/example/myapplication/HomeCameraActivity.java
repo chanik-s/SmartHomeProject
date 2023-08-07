@@ -4,7 +4,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -15,9 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
-
-public class homeCameraActivity extends AppCompatActivity  {
+public class HomeCameraActivity extends AppCompatActivity  {
 
     //홈 캠 스트리밍
     WebView webView;
@@ -81,7 +78,7 @@ public class homeCameraActivity extends AppCompatActivity  {
         callText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(homeCameraActivity.this);
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeCameraActivity.this);
                 builder.setTitle("신고");
                 builder.setMessage("신고하시겠습니까?");
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {

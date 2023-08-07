@@ -4,20 +4,20 @@
     android:layout_height="match_parent"
     android:gravity="center"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".GraphHumid">
+    tools:context=".GraphTemp">
     <TextView
-        android:id="@+id/textGH"
+        android:id="@+id/textGT"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="습도 Graph" />
+        android:text="온도 Graph" />
     <com.github.mikephil.charting.charts.LineChart
-        android:id="@+id/HumidChart"
+        android:id="@+id/TempChart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/nextBtn"
+        android:layout_above="@+id/nextBtnT"
         />
     <Button
-        android:id="@+id/nextBtn"
+        android:id="@+id/nextBtnT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Next"
@@ -25,7 +25,7 @@
         android:layout_marginBottom="16dp"
         />
     <Button
-        android:id="@+id/prevBtnH"
+        android:id="@+id/prevBtnT"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Prev"

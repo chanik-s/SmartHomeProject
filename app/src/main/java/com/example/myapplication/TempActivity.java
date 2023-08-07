@@ -2,16 +2,17 @@ package com.example.myapplication;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class tempActivity extends AppCompatActivity {
+public class TempActivity extends AppCompatActivity {
 
     private ListView ListTemp;
     ArrayList<Sensor> arrayListTemp; //받아와야함
@@ -20,7 +21,7 @@ public class tempActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_temp);
 
-
+        Button btnTempGraph = findViewById(R.id.btnTempGraph); //그래프 버튼
         Intent intent=getIntent();
 
         arrayListTemp = (ArrayList<Sensor>) intent.getSerializableExtra("sensor list");
@@ -32,7 +33,6 @@ public class tempActivity extends AppCompatActivity {
 
         //연결을 위한 adapter
         ArrayAdapter<String> adapter=new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,data);
-
         ListTemp.setAdapter(adapter);
         //연결완료
         if(arrayListTemp!=null) {
@@ -42,6 +42,14 @@ public class tempActivity extends AppCompatActivity {
         }
 
         adapter.notifyDataSetChanged(); //저장
+        btnTempGraph.setOnClickListener(new View.OnClickListener() { //그래프 버튼 클릭시
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(TempActivity.this,GraphTemp.class);
+                intent.putExtra("fortempgraph",arrayListTemp);
+                startActivity(intent);
+            }
+        });
     }
 }
 
