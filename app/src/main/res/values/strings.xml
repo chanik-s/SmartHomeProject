@@ -5,4 +5,5 @@
     <string name="menu_3">메뉴3</string>
     <string name="menu_4">메뉴4</string>
     <string name="title_home" />
+    <string name="title_activity_maps">MapsActivity</string>
 </resources>

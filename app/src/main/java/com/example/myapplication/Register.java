@@ -56,9 +56,10 @@ public class Register extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if(task.isSuccessful()){
-                                    //로그인 성공시
+                                    //회원가입 성공시
                                     FirebaseUser user = mAuth.getCurrentUser();
-                                    Toast.makeText(Register.this, user.getEmail()+ "님 회원가입 성공하셨습니다.",Toast.LENGTH_SHORT).show();
+                                   // Toast.makeText(Register.this, user.getEmail()+ "님 회원가입 성공하셨습니다.",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(Register.this, username+ "님 회원가입 성공하셨습니다.",Toast.LENGTH_SHORT).show();
 
                                     mAuth.signInWithEmailAndPassword( email, password)
                                             .addOnCompleteListener(Register.this, new OnCompleteListener<AuthResult>() {

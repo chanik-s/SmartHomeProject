@@ -1,8 +1,10 @@
 pluginManagement {
+
     repositories {
+        gradlePluginPortal()
         google()
         mavenCentral()
-        gradlePluginPortal()
+        maven { url 'https://devrepo.kakao.com/nexus/content/groups/public/'}
     }
 }
 dependencyResolutionManagement {

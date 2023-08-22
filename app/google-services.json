@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "920812355284",
+    "firebase_url": "https://my-application-6fa3b-default-rtdb.firebaseio.com",
     "project_id": "my-application-6fa3b",
     "storage_bucket": "my-application-6fa3b.appspot.com"
   },
@@ -14,7 +15,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "920812355284-mmhf0dtodp58etleuj645a2eqt7n9c3q.apps.googleusercontent.com",
+          "client_id": "920812355284-3e55e2ck83gn3ebemj4otpdu51ebidor.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.myapplication",
+            "certificate_hash": "b79ee1cabb5fb42c1499f727d98701774917fa5f"
+          }
+        },
+        {
+          "client_id": "920812355284-p1vmgat83sjradlnqvfgujg0c2q2690n.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
