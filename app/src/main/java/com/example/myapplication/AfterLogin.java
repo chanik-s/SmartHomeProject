@@ -26,8 +26,7 @@ public class AfterLogin extends AppCompatActivity {
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Map.class);
-                //카카오액티비티로 바꿨음
+                Intent intent = new Intent(getApplicationContext(), GoogleMap.class);
                 startActivity(intent);
             }
         });

@@ -49,7 +49,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Map"
+            android:name=".GoogleMap"
             android:exported="true" />
         <activity
             android:name=".Record"
@@ -80,9 +80,6 @@
             android:exported="true" />
         <activity
             android:name=".HomeCameraActivity"
-            android:exported="true" />
-        <activity
-            android:name=".TipOfLivesActivity"
             android:exported="true" />
         <activity
             android:name=".FaceCheckActivity"

@@ -20,6 +20,8 @@ import android.widget.TextView;
 import android.util.Log;
 
 
+import com.google.firebase.auth.FirebaseAuth;
+
 import java.util.ArrayList;
 
 import java.util.Timer;
@@ -30,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     final String TAG = "TAG+MainActivity";
+    private FirebaseAuth mAuth;
     private TextView dustText;
     private TextView tempText;
     private TextView humText;
@@ -99,12 +102,14 @@ public class MainActivity extends AppCompatActivity {
         tempText = (TextView) findViewById(R.id.tempText); //온도
         humText = (TextView) findViewById(R.id.humText);   //습도
 
+        mAuth=FirebaseAuth.getInstance();
+
         //상단메뉴바 버튼
         Button pmbu=findViewById(R.id.pmbu);
         Button hubu=findViewById(R.id.hubu);
         Button tmbu=findViewById(R.id.tmbu);
         Button facecheck=findViewById(R.id.faceCheck);
-        Button tipoflives=findViewById(R.id.tipOfLives);
+        Button logOut=findViewById(R.id.logOut);
         Button loginfile=findViewById(R.id.loginfile);
 
 
@@ -199,11 +204,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //생활 팁 눌렀을때
-       tipoflives.setOnClickListener(new View.OnClickListener() {
+       logOut.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
-               Intent intent=new Intent(getApplicationContext(),TipOfLivesActivity.class);
-               startActivity(intent);
+
+               signOut();
+
            }
        });
         //로그인 정보 및 기록
@@ -380,6 +386,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
+
+    }
+    private void signOut() {
+        mAuth.signOut();
+
+        //로그아웃 후 앱 시작 화면으로 이동
+        Intent intent = new Intent(getApplicationContext(),Login.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
 
     }
 }

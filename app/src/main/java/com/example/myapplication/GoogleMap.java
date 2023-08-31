@@ -2,37 +2,27 @@ package com.example.myapplication;
 
 import static android.content.ContentValues.TAG;
 
+import static com.example.myapplication.Login.loginIdN;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback;
 import androidx.core.content.ContextCompat;
-import androidx.core.os.LocaleListCompat;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.content.pm.PackageManager;
-import android.location.Criteria;
 import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MenuItem;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
-import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.libraries.places.api.Places;
 import com.google.android.libraries.places.api.net.PlacesClient;
@@ -45,9 +35,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
-import java.util.List;
 
-public class Map extends AppCompatActivity implements OnMapReadyCallback{
+public class GoogleMap extends AppCompatActivity implements OnMapReadyCallback{
     private static final int PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION =1 ;
     //, LocationListener, OnRequestPermissionsResultCallback {
     private boolean locationPermissionGranted;
@@ -60,19 +49,24 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
     private CameraPosition cameraPosition;
 
-    private GoogleMap mMap;
+    private com.google.android.gms.maps.GoogleMap mMap;
     private FusedLocationProviderClient fusedLocationClient; //위치 정보를 관리하고 요청하는데 사용되는 클래스
 
     private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
+    private FirebaseUser currentUser;
+    private DatabaseReference databaseReference;
+   // private FirebaseUser mUser;
 
     // The entry point to the Places API.
     private PlacesClient placesClient;
 
+    //private  String receivedLoginIdN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
+
+        //receivedLoginIdN = getIntent().getStringExtra("loginIdN");
 
         // Retrieve location and camera position from saved instance state.
         if (savedInstanceState != null) {
@@ -80,7 +74,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
             cameraPosition = savedInstanceState.getParcelable(KEY_CAMERA_POSITION);
         }
         mAuth = FirebaseAuth.getInstance();
-        mUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
 
         // Construct a PlacesClient
         Places.initialize(getApplicationContext(), getString(R.string.google_maps_key));
@@ -99,7 +93,7 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
 
     @Override
-    public void onMapReady(@NonNull GoogleMap googleMap) {
+    public void onMapReady(@NonNull com.google.android.gms.maps.GoogleMap googleMap) {
         mMap = googleMap;
 
         // Prompt the user for permission.
@@ -110,20 +104,6 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
         // Get the current location of the device and set the position of the map.
         getDeviceLocation();
 
-
-        /*
-        //fine=>정확한 정보 , coarse=>러프한 정보
-        if (ActivityCompat.checkSelfPermission(Map.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission(Map.this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(Map.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-            //String[] 형태로 권한을 전달하는 이유는 한 번에 여러 개의 권한을 요청할 수 있기 때문
-        } else {
-            // 권한이 있는 경우 위치 정보 가져오기
-            getLastKnownLocation();
-        }
-
-        readFirebaseAndMarker(mMap);
-        */
     }
     private void getLocationPermission() {
         /*
@@ -132,16 +112,18 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
          * onRequestPermissionsResult.
          */
         if (ContextCompat.checkSelfPermission(this.getApplicationContext(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                android.Manifest.permission.ACCESS_FINE_LOCATION)  // <권한> fine=>정확한 정보 , coarse=>러프한 정보
                 == PackageManager.PERMISSION_GRANTED) {
             locationPermissionGranted = true;
         } else {
             ActivityCompat.requestPermissions(this,
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
-                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},  //String[] 형태로 권한을 전달하는 이유는 한 번에 여러 개의 권한을 요청할 수 있기 때문
+                    PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION);  //권한 부여
         }
+
     }
-    @Override
+    //권한 요청의 결과를 처리
+    @Override      // 콜백을 재정의
     public void onRequestPermissionsResult(int requestCode,
                                            @NonNull String[] permissions,
                                            @NonNull int[] grantResults) {
@@ -157,6 +139,8 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
         }
         updateLocationUI();
     }
+
+
     private void updateLocationUI() { //지도에 위치 컨트롤을 설정
         if (mMap == null) {
             return;
@@ -190,9 +174,9 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
                             // Set the map's camera position to the current location of the device.
                             lastKnownLocation = task.getResult();
                             if (lastKnownLocation != null) {
-                                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
-                                        new LatLng(lastKnownLocation.getLatitude(),
-                                                lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
+                               // mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
+                              //          new LatLng(lastKnownLocation.getLatitude(),
+                                //                lastKnownLocation.getLongitude()), DEFAULT_ZOOM));
 
                                 updateLoginLocationFromFb(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());//파이어베이스 저장
                                 //LatLng loginLocation = new LatLng(lastKnownLocation.getLatitude(), lastKnownLocation.getLongitude());
@@ -225,28 +209,30 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
 
 
 
-
-
-
-
-
-
     //여기서부터 예전 내 코드들
-    private  void readFirebaseAndMarker(@NonNull GoogleMap mMap){
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+    private  void readFirebaseAndMarker(@NonNull com.google.android.gms.maps.GoogleMap mMap){
+        //데이터베이스 가져오기(읽기)
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
             String userId = currentUser.getUid();
             DatabaseReference userReference = databaseReference.child("users").child(userId);
 
             //파이어베이스 데이터베이스에서 값 읽기
-            userReference.child("loginLocation").addListenerForSingleValueEvent(new ValueEventListener() {
+            //loginIdN static으로 공유해서 문제생길수도 있음
+
+           // userReference.child("loginHistory").child(loginIdN)
+            userReference.child("loginHistory")
+                    .addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    if (dataSnapshot.exists()) {
-                        Double latitudeValue = dataSnapshot.child("latitude").getValue(Double.class);
-                        Double longitudeValue = dataSnapshot.child("longitude").getValue(Double.class);
+                   // if (dataSnapshot.exists()) {
+                    for(DataSnapshot loginSnapshot : dataSnapshot.getChildren()) {
+                       // Double latitudeValue = dataSnapshot.child("latitude").getValue(Double.class);
+                       // Double longitudeValue = dataSnapshot.child("longitude").getValue(Double.class);
+                        Double latitudeValue = loginSnapshot.child("latitude").getValue(Double.class);
+                        Double longitudeValue = loginSnapshot.child("longitude").getValue(Double.class);
 
                         if (latitudeValue != null && longitudeValue != null) {
                             double latitude = latitudeValue;
@@ -266,32 +252,23 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
         }
     }
 
-    private void getLastKnownLocation() {
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-            fusedLocationClient.getLastLocation() //위치 가져와
-                    .addOnSuccessListener(this, location -> {
-                        if (location != null) {
-                            updateLoginLocationFromFb(location.getLatitude(), location.getLongitude());
-                        }
-                    });
-        }
-
-    }
-
     private void updateLoginLocationFromFb(double latitude, double longitude) {
 
-        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
+        //데이터베이스 가져오기(쓰기)
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+        currentUser = mAuth.getCurrentUser();
 
         if (currentUser != null) {
             String userId = currentUser.getUid();
             DatabaseReference userReference = databaseReference.child("users").child(userId);
 
-            HashMap<String, Object> locationData = new HashMap<>();
-            locationData.put("latitude", latitude);
-            locationData.put("longitude", longitude);
+           // HashMap<String, Object> locationData = new HashMap<>();//새로운 객체말고 Login.java에서 정보 가져와야..
+           // locationData.put("latitude", latitude);
+            //locationData.put("longitude", longitude);
 
-            userReference.child("loginLocation").setValue(locationData)
+          //  String receivedLoginIdN = getIntent().getStringExtra("loginIdN");
+            //loginIdN static으로 공유해서 문제생길수도 있음
+            userReference.child("loginHistory").child(loginIdN).child("latitude").setValue(latitude)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
@@ -302,10 +279,37 @@ public class Map extends AppCompatActivity implements OnMapReadyCallback{
                             }
                         }
                     });
+            userReference.child("loginHistory").child(loginIdN).child("longitude").setValue(longitude)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d("MapActivity", "Login location updated in Firebase");
+                            } else {
+                                Log.e("MapActivity", "Failed to update login location in Firebase", task.getException());
+                            }
+                        }
+                    });
+
+        }
+        else{
+            Log.d("MapActivity", "No User is signed in");
         }
 
     }
 
+    /*
+    private void getLastKnownLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            fusedLocationClient.getLastLocation() //위치 가져와
+                    .addOnSuccessListener(this, location -> {
+                        if (location != null) {
+                            updateLoginLocationFromFb(location.getLatitude(), location.getLongitude());
+                        }
+                    });
+        }
+
+    }*/
 
 
 }

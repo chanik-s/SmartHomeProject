@@ -62,11 +62,11 @@
             android:background="#009688"
             android:text="얼굴 인식"/>
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/tipOfLives"
+            android:id="@+id/logOut"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#009688"
-            android:text="생활 팁"/>
+            android:text="로그아웃"/>
     </LinearLayout>
 
 
