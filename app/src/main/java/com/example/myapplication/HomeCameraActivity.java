@@ -23,7 +23,7 @@ public class HomeCameraActivity extends AppCompatActivity  {
     //CCTV ON OFF BTN
     Button cctvOnButton,cctvOffButton;
     TextView callText;
-
+    private SSHManager sshManager;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +43,28 @@ public class HomeCameraActivity extends AppCompatActivity  {
         webSettings.setBuiltInZoomControls(true);
         webSettings.setDisplayZoomControls(false);
 
+        sshManager=new SSHManager();
+
         //on시
         cctvOnButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //sshManager.connect("192.168.25.19","pi","pi");
+                // 명령 실행
+               // sshManager.executeCommand("sh mjpg.sh");
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SSHManager sshManager = new SSHManager();
+                        sshManager.connect("192.168.25.19","pi","pi");
+                        // 명령 실행
+                        sshManager.executeCommand("sh mjpg.sh");
+                    }
+                });
+                thread.start();
+
+
                 //webview.loadUrl 사용시 웹을 통째로 가져와서 불필요함
                 webView.loadData("<html><head><style type='text/css'>body{margin:auto auto;text-align:center;} " +
                                 "img{width:100%25;} div{overflow: hidden;} </style></head>" +
@@ -58,6 +76,22 @@ public class HomeCameraActivity extends AppCompatActivity  {
         cctvOffButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                //sshManager.connect("192.168.25.19","pi","pi");
+                // 명령 실행
+               // sshManager.executeCommand("pkill mjpg.sh");
+                Thread thread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        SSHManager sshManager = new SSHManager();
+                        sshManager.connect("192.168.25.19","pi","pi");
+                        // 명령 실행
+                        sshManager.executeCommand("pkill mjpg.sh");
+                    }
+                });
+                thread.start();
+
+
                 //0405과제:""webview 끄는거 찾기!!!!!!!
                 //webView를 담고 있는 액티비티를 종료하면 된다?
                 finish(); //액티비티 종료

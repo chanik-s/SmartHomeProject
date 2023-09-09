@@ -74,5 +74,6 @@ dependencies {
     //noinspection GradleCompatible
     implementation 'com.google.android.libraries.places:places:3.2.0'
     //implementation files('libs/libDaumMapAndroid.jar') //카카오
+    implementation 'com.jcraft:jsch:0.1.55' // 최신 버전 확인
 }
 
