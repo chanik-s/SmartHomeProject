@@ -50,14 +50,13 @@ public class HomeCameraActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                //sshManager.connect("192.168.25.19","pi","pi");
-                // 명령 실행
-               // sshManager.executeCommand("sh mjpg.sh");
+
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         SSHManager sshManager = new SSHManager();
-                        sshManager.connect("192.168.25.19","pi","pi");
+                        //sshManager.connect("192.168.25.19","pi","pi");
+                        sshManager.connect(GlobalVariables.ipAddress,"pi","pi");
                         // 명령 실행
                         sshManager.executeCommand("sh mjpg.sh");
                     }
@@ -68,8 +67,8 @@ public class HomeCameraActivity extends AppCompatActivity  {
                 //webview.loadUrl 사용시 웹을 통째로 가져와서 불필요함
                 webView.loadData("<html><head><style type='text/css'>body{margin:auto auto;text-align:center;} " +
                                 "img{width:100%25;} div{overflow: hidden;} </style></head>" +
-                                "<body><div><img src='http://" + "192.168.25.19" + ":8091/?action=stream/'/></div></body></html>",
-                        "text/html", "UTF-8");
+                                "<body><div><img src='http://" + GlobalVariables.ipAddress + ":8091/?action=stream/'/></div></body></html>",
+                        "text/html", "UTF-8"); //포트 포워딩 8091포트 뚫음
             }
         });
         //off시
@@ -77,14 +76,12 @@ public class HomeCameraActivity extends AppCompatActivity  {
             @Override
             public void onClick(View view) {
 
-                //sshManager.connect("192.168.25.19","pi","pi");
-                // 명령 실행
-               // sshManager.executeCommand("pkill mjpg.sh");
                 Thread thread = new Thread(new Runnable() {
                     @Override
                     public void run() {
                         SSHManager sshManager = new SSHManager();
-                        sshManager.connect("192.168.25.19","pi","pi");
+                        //sshManager.connect("192.168.25.19","pi","pi");
+                        sshManager.connect(GlobalVariables.ipAddress,"pi","pi");
                         // 명령 실행
                         sshManager.executeCommand("pkill mjpg.sh");
                     }

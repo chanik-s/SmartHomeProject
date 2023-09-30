@@ -18,12 +18,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 
 
+
     public class HttpThread extends Thread { //Json 파싱 클래스
         String TAG = "JsonParseTest";
         String jsonString;
         //ArrayList<Sensor> sensorArrayList;
         Handler handler;
         ArrayList<Sensor> sensorArrayList;
+
 
         public HttpThread(Handler handler){
 
@@ -34,7 +36,8 @@ import java.util.ArrayList;
         @Override
         public void run(){
             // 스레드에 의해 처리될 내용을 담기 위한 함수 [스레드의  run() 함수]
-            String url ="http://192.168.25.19:80/connect.php";
+            //String url ="http://"+192.168.25.19:80+"/connect.php";
+            String url ="http://"+GlobalVariables.ipAddress+":80/connect.php";
             try {
                 URL serverURL = new URL(url); //라즈베리파이 서버의 url 정보 담는 객체 생성
 
