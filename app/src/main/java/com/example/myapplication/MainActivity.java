@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
         Button pmbu=findViewById(R.id.pmbu);
         Button hubu=findViewById(R.id.hubu);
         Button tmbu=findViewById(R.id.tmbu);
-        Button facecheck=findViewById(R.id.faceCheck);
+        Button faceCheck=findViewById(R.id.faceCheck);
         Button logOut=findViewById(R.id.logOut);
         Button loginfile=findViewById(R.id.loginfile);
 
@@ -197,7 +197,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         //얼굴 인식 눌렀을때
-        facecheck.setOnClickListener(new View.OnClickListener() {
+        faceCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(getApplicationContext(),FaceCheckActivity.class);
