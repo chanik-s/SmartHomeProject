@@ -22,7 +22,14 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.ListResult;
 import com.google.firebase.storage.StorageReference;
 
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class FaceCheckActivity extends AppCompatActivity {
 
@@ -59,7 +66,7 @@ public class FaceCheckActivity extends AppCompatActivity {
             public void onSuccess(ListResult listResult) {
 
                 ArrayList<String> fileNames = new ArrayList<>(); // 파일 이름 목록 초기화
-
+                ArrayList<String> imageTimes = new ArrayList<>(); // 이미지 시간 목록 초기화
                 for (StorageReference item : listResult.getItems()) {
                     // 각 이미지를 Glide를 사용하여 ImageView에 표시
 
@@ -67,17 +74,17 @@ public class FaceCheckActivity extends AppCompatActivity {
                     item.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
-                          //  Glide.with(getApplicationContext()).load(uri).into(imageView);
-
                             // 파일 이름 가져오기
                             String fileName = item.getName();
+                            // 이미지 시간 정보 가져오기 (예: 이미지 이름에서 추출)
+                            String imageTime = extractTimeFromImageName(fileName);
+                            imageTimes.add(imageTime); // 이미지 시간 목록에 추가
 
                             imageUrls.add(uri);
                             fileNames.add(fileName);
 
-                            // 파일 이름 목록을 어댑터에 설정
-                            imageAdapter.setFileNames(fileNames);
-
+                            imageAdapter.setFileNames(fileNames); // 파일 이름 목록을 어댑터에 설정
+                            imageAdapter.setImageTimes(imageTimes); // 이미지 시간 정보 설정
                             imageAdapter.notifyDataSetChanged(); // 어댑터에 데이터 변경을 알림
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -97,4 +104,27 @@ public class FaceCheckActivity extends AppCompatActivity {
 
 
     }
+    private String extractTimeFromImageName(String fileName){
+        //String extractedNum=fileName.replaceAll("^[0-9]","");
+
+        // 파일 이름에서 "unknown_"를 제거하여 "1695918735.jpg" 부분을 얻습니다.
+        String tmp = fileName.replace("unknown_", "");
+        // 파일 이름에서 ".jpg" 확장자 부분을 제거하여 "1695918735" 부분을 얻습니다.
+        String extractedNum = tmp.replace(".jpg", "");
+
+        // 날짜 및 시간 형식 지정
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd-HH:mm:ss", Locale.US);
+
+        // 숫자 문자열을 long 타입으로 변환
+        long timestamp = Long.parseLong(extractedNum);
+
+        // Epoch 시간(밀리초)을 Date 객체로 변환
+        Date date = new Date(timestamp * 1000); // 밀리초로 변환하기 위해 1000을 곱함
+
+        // 형식에 따라 문자열로 변환
+        String formattedDateTime = sdf.format(date);
+
+        return formattedDateTime;
+    }
+
 }

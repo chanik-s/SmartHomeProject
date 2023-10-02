@@ -6,14 +6,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".FaceCheckActivity">
 
+    <!-- 타이틀 TextView -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:text="얼굴인식 - 신원 불분명한 사람"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:orientation="vertical"
-        android:padding="10px">
+        android:padding="16dp">
         <!-- 리사이클러뷰 추가 -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
