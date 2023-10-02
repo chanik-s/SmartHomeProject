@@ -12,8 +12,42 @@
         android:layout_height="wrap_content"
         android:padding="16dp"
         android:text="얼굴인식 - 신원 불분명한 사람"
-        android:textSize="24sp"
+        android:textSize="22sp"
         android:textStyle="bold" />
+
+    <!-- 가로로 나란히 배치된 EditText -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/editTextYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="연도를 입력하세요." />
+
+        <EditText
+            android:id="@+id/editTextMonth"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="월을 입력하세요." />
+
+        <EditText
+            android:id="@+id/editTextDay"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="일을 입력하세요." />
+        <Button
+            android:id="@+id/buttonSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="조회" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -28,7 +62,5 @@
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
     </LinearLayout>
-
 </LinearLayout>

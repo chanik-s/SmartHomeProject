@@ -49,15 +49,23 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
 
     @Override
     public void onBindViewHolder(@NonNull ImageViewHolder holder, int position) {
-        //각 아이템들 실제적 매칭
-        Uri imageUrl = imageUrls.get(position);
-        holder.fileNameTextView.setText(fileNames.get(position)); // 파일 이름 설정
-        holder.timeTextView.setText(imageTimes.get(position)); //이미지 시간 설정
+       if(position < fileNames.size() && position < imageTimes.size()) {
+           //각 아이템들 실제적 매칭
+           Uri imageUrl = imageUrls.get(position);
+           holder.fileNameTextView.setText(fileNames.get(position)); // 파일 이름 설정
+           holder.timeTextView.setText(imageTimes.get(position)); //이미지 시간 설정
 
-        Glide.with(context)
-                .load(imageUrl)
-                .override(200, Target.SIZE_ORIGINAL) // 여기서 200은 원하는 폭입니다.
-                .into(holder.imageView);
+           Glide.with(context)
+                   .load(imageUrl)
+                   .override(200, Target.SIZE_ORIGINAL) // 여기서 200은 원하는 폭입니다.
+                   .into(holder.imageView);
+       }
+        else {
+            // 데이터가 없는 경우 빈 홀더를 표시
+            holder.imageView.setImageDrawable(null);
+            holder.fileNameTextView.setText("");
+            holder.timeTextView.setText("");
+        }
     }
 
     @Override
