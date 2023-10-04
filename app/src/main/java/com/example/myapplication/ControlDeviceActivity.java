@@ -35,7 +35,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
         btnDevOn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String on_url = "http://192.168.25.19/post.php"; //라즈베리파이 ip주소
+                String on_url = "http://"+GlobalVariables.ipAddress+"/post.php"; //라즈베리파이 ip주소
 
                 // Volley 라이브러리를 사용하여 HTTP POST 요청을 처리하기 위한 객체
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, on_url,
@@ -72,7 +72,7 @@ public class ControlDeviceActivity extends AppCompatActivity {
         btnDevOff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String off_url = "http://192.168.25.19/post.php"; //라즈베리파이 ip주소
+                String off_url = "http://"+GlobalVariables.ipAddress+"/post.php"; //라즈베리파이 ip주소
 
                 // Volley 라이브러리를 사용하여 HTTP POST 요청을 처리하기 위한 객체
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, off_url,
