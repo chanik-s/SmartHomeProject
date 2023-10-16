@@ -30,6 +30,13 @@ public class ImageAdapter extends RecyclerView.Adapter<ImageAdapter.ImageViewHol
         this.imageTimes =new ArrayList<>(); // 이미지 시간 목록 초기화
     }
 
+    public void updateData(ArrayList<Uri> imageUrls, ArrayList<String> fileNames, ArrayList<String> imageTimes) {
+        this.imageUrls = imageUrls;
+        this.fileNames = fileNames;
+        this.imageTimes = imageTimes;
+        notifyDataSetChanged(); // 데이터 변경을 알립니다.
+    }
+
     // 파일 이름 목록 설정 메서드 추가
     public void setFileNames(ArrayList<String> fileNames) {
         this.fileNames = fileNames;

@@ -91,6 +91,9 @@ public class FaceCheckActivity extends AppCompatActivity {
 
                         ArrayList<String> fileNames = new ArrayList<>(); // 파일 이름 목록 초기화
                         ArrayList<String> imageTimes = new ArrayList<>(); // 이미지 시간 목록 초기화
+                        //
+                        ArrayList<Uri> imageUrls=new ArrayList<>();
+                        //
                         for (StorageReference item : listResult.getItems()) {
                             // 각 이미지를 Glide를 사용하여 ImageView에 표시
 
@@ -118,6 +121,8 @@ public class FaceCheckActivity extends AppCompatActivity {
                                 }
                             });
                         }
+                        // 이미지 어댑터에 데이터를 업데이트합니다.
+                        imageAdapter.updateData(imageUrls, fileNames, imageTimes);
                         // 만약 이미지가 없는 경우, 빈 데이터로 어댑터를 설정합니다.
                         if (listResult.getItems().isEmpty()) {
                             imageAdapter.setFileNames(new ArrayList<>());
