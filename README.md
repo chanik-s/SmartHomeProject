@@ -41,3 +41,25 @@ DB화된 센서값 데이터들을 Apache 웹 서버에 json포맷으로 모두 
 ![connect_php내용물for앱과의통신](https://github.com/chanik-s/SmartHomeProject/assets/78005321/805ce96b-cb98-42eb-bef8-da55e8e1e3a3)
 
 
+
+
+
+
+
+
+
+
+--안드로이드 앱
+
+1.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/d1ad0bb0-c6ec-4008-8a96-9a331266a157)
+
+2. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/0ea994a2-388a-4f84-a32b-2fe1d07ce5df)
+3. 
+4. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/0ed3439c-e043-4322-a10d-0e488c5e0abd)
+5. 
+4.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/560d4136-888b-48d7-811a-7df221694cf8)
+
+5.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/896687cd-d4ec-4592-8bbd-696a88059c19)
+
+
+
