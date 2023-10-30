@@ -51,15 +51,18 @@ DB화된 센서값 데이터들을 Apache 웹 서버에 json포맷으로 모두 
 
 --안드로이드 앱
 
-1.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/d1ad0bb0-c6ec-4008-8a96-9a331266a157)
+1.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/fe865560-ee82-42df-81ea-56fee0c462ce)
 
-2. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/0ea994a2-388a-4f84-a32b-2fe1d07ce5df)
-3. 
-4. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/0ed3439c-e043-4322-a10d-0e488c5e0abd)
-5. 
-4.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/560d4136-888b-48d7-811a-7df221694cf8)
 
-5.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/896687cd-d4ec-4592-8bbd-696a88059c19)
+2.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/0c3c3045-8f17-4394-b707-d67eb11305e6)
+
+3. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/2e77b253-009d-4039-82f2-1251b2f4553b)
+
+4. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/21be653b-ff69-44b7-a635-05da9221d26f)
+
+
+5.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/deb78f4d-ae81-4615-ab72-e464800472bd)
+
 
 
 
