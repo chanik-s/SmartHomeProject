@@ -51,17 +51,41 @@ DB화된 센서값 데이터들을 Apache 웹 서버에 json포맷으로 모두 
 
 --안드로이드 앱
 
-1.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/fe865560-ee82-42df-81ea-56fee0c462ce)
+
+1.로그인화면
+ ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/8b55d0b4-3902-41fb-b001-61eea5f14b14)
 
 
-2.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/0c3c3045-8f17-4394-b707-d67eb11305e6)
-
-3. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/2e77b253-009d-4039-82f2-1251b2f4553b)
-
-4. ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/21be653b-ff69-44b7-a635-05da9221d26f)
+2.메인화면 
+   ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/7db8a549-0c5c-4539-bb78-844fa7c1bc08)
 
 
-5.![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/deb78f4d-ae81-4615-ab72-e464800472bd)
+
+3. 센서 버튼 눌렀을경우(센서값 데이터 리스트, 각 센서마다 동일)
+   ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/6580de0e-fbf2-48b7-bf49-73bbb07f8f49)
+
+4. 센서 그래프 정보(각 10개씩 시간대순으로 정렬,NEXT/PREV로 이동가능) 
+   ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/c8cad645-0ad1-44c5-bfda-50255ab06d7d)
+
+5. 기기 제어
+   앱 상에는 ON /OFF 버튼만 있다.
+   ON을 누를시 라즈베리파이 웹서버에 명령을 내려 python파일을 실행시킨다.
+   WIFI모듈이 달린 아두이노에 연결된 LED(모터가 될 수 있음)를 원격으로 제어 가능(ON/OFF)
+
+6. 홈 캠 기능(내부)
+  mjpg-streamer를 이용하여 웹뷰로 홈캠 스트리밍
+  ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/c1b70c03-812b-40d1-8b57-f622bb052472)
+
+
+7. 로그인 위치(파이어베이스를 통한 실시간 위치정보(위도,경도) 저장 및 구글맵에 마커로 표시)
+   (보안성 강화)
+   ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/964af260-4b0b-44b4-8ad0-cacbfd3a3c11)
+
+8. 얼굴인식
+   (보안성 강화)
+   신원 미상자 5초 유지시 Firebase 스토리지에 이미지 저장 및 앱에서 확인 가능
+   ![image](https://github.com/chanik-s/SmartHomeProject/assets/78005321/9b46b3f9-9c14-4ee6-86d9-4a63dc4e69d3)
+
 
 
 
