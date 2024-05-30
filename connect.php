@@ -1,8 +1,8 @@
 <?php
  
- $db_host='192.168.25.19'; /*wifi 아이피주소*/
- $db_user='chanik';
- $db_password='pi1234';
+ $db_host=''; /*wifi 아이피주소*/
+ $db_user='';
+ $db_password='';
  $db_name='db';
  $con=mysqli_connect($db_host,$db_user,$db_password,$db_name);
  
