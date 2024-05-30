@@ -1,8 +1,8 @@
 import socket
 import sys
 
-HOST='192.168.25.44' #arduino device ip
-PORT=8888 # port by arduino 
+HOST='' #arduino device ip
+PORT= # port by arduino 
 
 if len(sys.argv)!=2:
     print("Usage!:python client.py <message>")
